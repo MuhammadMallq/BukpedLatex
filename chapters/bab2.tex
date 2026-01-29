@@ -1,0 +1,63 @@
+\subsection{Tinjauan Pustaka}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Waterfall_Mode.png}
+    \caption{Waterfall Overview Penelitian Terkait}
+    \label{fig:Waterfall}
+\end{figure}
+
+\subsubsection{Sistem Informasi Penjualan}
+Sistem informasi manajemen berperan penting dalam mengintegrasikan berbagai elemen operasional usaha untuk menghasilkan informasi yang akurat dalam pengambilan keputusan. Pada sektor UMKM, digitalisasi sistem bukan lagi sekadar tren, melainkan kebutuhan untuk menjaga efisiensi. Sistem informasi laporan keuangan berbasis web mampu mengotomatisasi pencatatan dan pengolahan data transaksi sehingga mengurangi risiko kesalahan dan kehilangan data, serta mempercepat proses pembuatan laporan keuangan dibandingkan dengan sistem pembukuan manual \cite{Anggraeni2023}.
+
+\subsubsection{Automasi Manajemen Inventaris}
+Manajemen inventaris otomatis adalah penggunaan teknologi perangkat lunak untuk memantau dan mengatur tingkat persediaan barang secara real-time. Sistem ini bekerja dengan mengurangi jumlah stok di basis data secara instan begitu transaksi penjualan terjadi. Penerapan sistem informasi inventori berbasis web membantu pelaku UMKM memantau persediaan barang dengan lebih akurat, mengurangi kesalahan pencatatan stok, serta meningkatkan efektivitas pengelolaan stok dibandingkan penggunaan sistem pencatatan manual \cite{Rifky2025}.
+
+\subsubsection{Komunikasi Real-Time melalui WhatsApp API}
+Integrasi komunikasi dalam sistem informasi membantu menjembatani kesenjangan antara sistem digital dan interaksi personal. WhatsApp Business memungkinkan interaksi yang lebih langsung dan efisien antara pelaku usaha dan pelanggan, sehingga komunikasi menjadi lebih responsif dan berdampak positif pada kepuasan pelanggan \cite{Sayudin2024}.
+
+\subsubsection{Visualisasi Data Melalui Dashboard Analitik}
+Sistem Dashboard analitik berfungsi untuk mengubah data mentah dari basis data menjadi informasi strategis. Dashboard Business Intelligence yang menampilkan visualisasi data penjualan serta informasi penting lainnya mampu meningkatkan pemahaman manajemen terhadap kinerja penjualan dan profit perusahaan, sehingga mendukung proses pengambilan keputusan yang lebih cepat dan tepat \cite{Hendrawan2022}.
+
+\subsection{Teknologi Pengembangan Website}
+
+\subsubsection{HTML (Hyper Text Markup Language)}
+HTML merupakan bahasa standar yang digunakan untuk menyusun struktur halaman web melalui berbagai elemen seperti paragraf, judul, dan tabel yang ditampilkan pada peramban web \cite{Santoso2025}.
+
+\subsubsection{CSS (Cascading Style Sheet)}
+CSS digunakan untuk mengatur tampilan dan tata letak halaman web agar terlihat menarik. CSS memisahkan konten (HTML) dari desain visual, memungkinkan pengaturan warna, font, dan responsivitas tampilan di berbagai perangkat \cite{Gustiani2022}.
+
+\subsubsection{JavaScript \& Blade Template}
+JavaScript adalah bahasa pemrograman sisi klien yang membuat halaman web menjadi interaktif dan dinamis \cite{Rosnelly2023}. Dalam proyek ini, JavaScript digunakan bersama dengan Blade, yaitu mesin templat (templating engine) bawaan Laravel. Blade memungkinkan penggunaan kode PHP di dalam tampilan HTML dengan sintaks yang lebih ringkas dan aman, serta mendukung fitur pewarisan tata letak (layout inheritance) untuk efisiensi kode frontend \cite{RizkiHanif2023}.
+
+\subsubsection{Framework Laravel}
+Laravel adalah kerangka kerja (framework) aplikasi web berbasis PHP yang menggunakan arsitektur MVC (Model-View-Controller). Laravel dirancang untuk meningkatkan produktivitas pengembangan dengan menyediakan fitur bawaan yang lengkap seperti otentikasi, routing, dan manajemen sesi \cite{RizkiHanif2023}.
+\begin{itemize}
+    \item \textbf{Keamanan}: Laravel memiliki fitur keamanan bawaan untuk melindungi aplikasi dari serangan umum seperti SQL Injection, Cross-Site Request Forgery (CSRF), dan Cross-Site Scripting (XSS).
+    \item \textbf{Eloquent ORM}: Fitur ini memudahkan interaksi dengan basis data menggunakan sintaks berorientasi objek, sehingga pengembang tidak perlu menulis kueri SQL yang panjang secara manual.
+\end{itemize}
+
+\subsubsection{XAMPP (Local Server Environment)}
+XAMPP adalah paket perangkat lunak bebas yang mendukung banyak sistem operasi, yang merupakan kompilasi dari beberapa program. XAMPP berfungsi sebagai server lokal (localhost) untuk menjalankan skrip PHP dan basis data MySQL selama proses pengembangan aplikasi sebelum di-hosting ke internet \cite{Siregar2021}.
+
+\subsection{Manajemen Basis Data}
+
+\subsubsection{MySQL (Sistem Manajemen Basis Data)}
+MySQL adalah sistem manajemen basis data relasional (RDBMS) yang bersifat open-source. MySQL menggunakan bahasa SQL (Structured Query Language) untuk mengakses dan memanipulasi data. Dalam sistem ini, MySQL bertugas menyimpan seluruh data produk, transaksi, dan pengguna secara terstruktur dalam bentuk tabel-tabel yang saling berelasi \cite{Siregar2021}.
+
+\subsection{UML (Unified Modeling Language)}
+
+\subsubsection{Pengertian UML}
+Unified Modeling Language (UML) adalah bahasa standar untuk memvisualisasikan, merancang, dan mendokumentasikan sistem perangkat lunak. UML membantu pengembang dan pemangku kepentingan memahami alur kerja sistem sebelum kode program ditulis \cite{Aziz2024}.
+
+\subsubsection{Model Diagram UML}
+\begin{itemize}
+    \item \textbf{Use Case Diagram}: Menggambarkan interaksi antara aktor (pengguna) dengan sistem.
+    \item \textbf{Activity Diagram}: Menjelaskan alur kerja atau aktivitas operasional dalam sistem.
+    \item \textbf{Sequence Diagram}: Menunjukkan interaksi antar objek dalam urutan waktu tertentu.
+\end{itemize}
+
+\subsection{Konsep Pengujian}
+
+\subsubsection{Pengujian Sistem dengan Metode Code Coverage}
+Pengujian merupakan tahap krusial untuk menjamin kualitas dan reliabilitas aplikasi. Salah satu parameter yang digunakan dalam pengukuran kualitas pengujian adalah Code Coverage. Konsep ini digunakan untuk mengukur sejauh mana kode program telah dieksekusi oleh serangkaian skenario uji yang dibuat. Penggunaan indikator pengujian yang terukur membantu pengembang dalam mengidentifikasi bagian kode yang belum teruji, sehingga dapat meminimalisir adanya celah kesalahan (bug) yang tersembunyi dan memastikan setiap fungsi utama, seperti automasi stok, berjalan sesuai dengan logika yang diharapkan \cite{Irawan2025}.

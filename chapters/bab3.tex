@@ -1,0 +1,362 @@
+\subsection{Metodologi Pengembangan Sistem menggunakan Waterfall Model}
+
+Metodologi yang diterapkan dalam pengembangan Website Ice Tea ini adalah model Waterfall atau model air terjun. Penggunaan metode ini didasarkan pada karakteristik alur kerjanya yang sistematis dan berurutan, sehingga setiap tahapan pengembangan dapat terpantau secara konsisten sebelum berlanjut ke tahap berikutnya.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Waterfall_Mode.png}
+    \caption{Waterfall Mode}
+    \label{fig:waterfall_model}
+\end{figure}
+
+Proses pengembangan diawali dengan tahapan analisis kebutuhan, di mana dilakukan identifikasi mendalam terhadap kendala operasional pada UMKM Ice Tea, seperti kesulitan dalam manajemen stok dan pelaporan penjualan secara manual. Hasil dari analisis ini kemudian menjadi landasan untuk menentukan spesifikasi fungsional sistem, termasuk kebutuhan akan fitur automasi stok dan dashboard analitik bagi administrator.
+
+Setelah kebutuhan sistem teridentifikasi, tahap selanjutnya adalah perancangan sistem. Pada fase ini, dilakukan penyusunan arsitektur teknis yang mencakup perancangan basis data, diagram alir sistem (flowchart), serta desain antarmuka pengguna agar aplikasi yang dihasilkan nantinya bersifat intuitif dan user-friendly. Tahap ini menjadi krusial sebagai cetak biru sebelum masuk ke proses implementasi atau pengodingan. Proses implementasi dilakukan dengan menerjemahkan rancangan ke dalam baris kode menggunakan Framework Laravel sebagai pengolah logika di sisi backend yang menerapkan pola desain MVC, serta mesin templat Blade untuk frontend yang terintegrasi dengan HTML, CSS, dan JavaScript di sisi frontend, dengan MySQL sebagai pusat penyimpanan data relasional.
+
+Memasuki tahap akhir pengembangan, dilakukan proses pengujian sistem untuk memastikan bahwa setiap fitur, seperti pengurangan stok otomatis dan integrasi WhatsApp API, berfungsi dengan baik dan bebas dari kendala teknis. Pengujian ini bertujuan untuk memvalidasi kualitas sistem sebelum benar-benar dioperasikan oleh pengguna. Setelah sistem dinyatakan layak, tahap pemeliharaan dijalankan untuk menjaga performa website, melakukan pembaruan berkala pada data produk, serta memastikan keamanan data transaksi tetap terjaga selama website digunakan dalam kegiatan operasional bisnis harian.
+
+\subsubsection{Analisis Kebutuhan Fungsional}
+Sistem ini dirancang untuk membantu UMKM Ice Tea dalam mengelola operasional penjualan, inventaris, dan pemantauan performa bisnis secara digital. Berdasarkan analisis kode program, berikut adalah fungsi-fungsi yang tersedia dalam sistem:
+
+\begin{enumerate}
+    \item \textbf{Manajemen Menu \& Produk (Menu Management)}
+    \begin{itemize}
+        \item \textbf{Lihat Katalog Menu}: Pengguna (pelanggan) dan administrator dapat melihat daftar lengkap menu minuman yang tersedia beserta harga dan status stoknya.
+        \item \textbf{Tambah Menu Baru}: Administrator dapat menambahkan varian minuman baru ke dalam sistem dengan melengkapi detail seperti nama menu, harga, deskripsi, dan mengunggah gambar produk.
+        \item \textbf{Edit Informasi Menu}: Administrator dapat memperbarui informasi produk yang sudah ada, termasuk mengubah harga, deskripsi, atau mengganti gambar produk.
+        \item \textbf{Hapus Menu}: Administrator dapat menghapus menu minuman yang sudah tidak dijual dari daftar katalog.
+    \end{itemize}
+
+    \item \textbf{Manajemen Inventaris (Stock Management)}
+    \begin{itemize}
+        \item \textbf{Monitoring Stok Real-time}: Administrator dapat memantau jumlah ketersediaan stok untuk setiap varian menu secara langsung melalui halaman stok.
+        \item \textbf{Update Manual Stok}: Administrator memiliki akses untuk menambah atau menyesuaikan jumlah stok barang secara manual jika terjadi restock barang fisik.
+        \item \textbf{Peringatan Stok Menipis}: Sistem secara otomatis mendeteksi dan menampilkan peringatan di dashboard jika terdapat menu dengan jumlah stok kurang dari 10 item.
+    \end{itemize}
+
+    \item \textbf{Manajemen Pesanan (Order Management)}
+    \begin{itemize}
+        \item \textbf{Checkout Pesanan}: Pelanggan (Public User) dapat memilih menu dan melakukan pemesanan (checkout) tanpa perlu melakukan login, termasuk memilih metode pembayaran.
+        \item \textbf{Monitoring Pesanan Masuk}: Administrator dapat melihat daftar seluruh pesanan yang masuk secara real-time dengan status "Baru".
+        \item \textbf{Update Status Pesanan}: Administrator dapat mengubah status pesanan dari "Baru" menjadi "Selesai" atau "Batal".
+        \begin{itemize}
+            \item \textit{Selesai}: Sistem otomatis mencatat pendapatan dan mengurangi stok (jika belum terpotong).
+            \item \textit{Batal}: Sistem otomatis mengembalikan jumlah stok (restock) jika pesanan dibatalkan.
+        \end{itemize}
+        \item \textbf{Hapus Riwayat Pesanan}: Administrator dapat menghapus data riwayat pesanan yang sudah tidak diperlukan dari basis data.
+    \end{itemize}
+
+    \item \textbf{Manajemen Akses \& Autentikasi (Authentication)}
+    \begin{itemize}
+        \item \textbf{Login Admin}: Administrator dapat masuk ke dalam panel pengelolaan sistem menggunakan username dan password yang valid untuk mendapatkan hak akses penuh.
+        \item \textbf{Logout}: Administrator dapat keluar dari sesi sistem untuk menjaga keamanan akun dan data.
+        \item \textbf{Proteksi Halaman (Middleware)}: Sistem membatasi akses ke halaman pengelolaan (Dashboard, Tambah Menu, Kelola Stok) sehingga hanya dapat diakses oleh pengguna yang sudah login sebagai admin.
+    \end{itemize}
+
+    \item \textbf{Analitik dan Laporan (Analytics \& Reporting)}
+    \begin{itemize}
+        \item \textbf{Dashboard Statistik}: Menampilkan ringkasan performa bisnis secara visual, mencakup total menu aktif, total pesanan masuk, dan total omset pendapatan.
+        \item \textbf{Grafik Pendapatan Bulanan}: Menyajikan visualisasi grafik tren pendapatan usaha yang dikelompokkan per bulan untuk memudahkan analisis pertumbuhan bisnis.
+        \item \textbf{Top 5 Menu Terlaris}: Menampilkan daftar 5 produk minuman yang paling banyak dipesan oleh pelanggan.
+        \item \textbf{Metode Pembayaran Populer}: Menampilkan grafik proporsi penggunaan metode pembayaran yang dipilih oleh pelanggan.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Analisis Kebutuhan Non-Fungsional}
+Analisis kebutuhan non-fungsional mendefinisikan kualitas dan batasan sistem:
+\begin{enumerate}
+    \item \textbf{Keamanan (Security)}:
+    \begin{itemize}
+        \item Sistem menggunakan mekanisme autentikasi yang aman (Laravel Auth).
+        \item Password pengguna disimpan dalam bentuk hash terenkripsi.
+        \item Setiap pengguna hanya dapat mengakses dan mengelola data (tugas/acara) miliknya sendiri (Authorization).
+    \end{itemize}
+    \item \textbf{Antarmuka Pengguna (Usability)}:
+    \begin{itemize}
+        \item Sistem dibangun menggunakan framework CSS Tailwind untuk memastikan tampilan yang responsif dan modern.
+        \item Desain antarmuka yang intuitif memudahkan pengguna dalam navigasi antar fitur.
+    \end{itemize}
+    \item \textbf{Kinerja (Performance)}:
+    \begin{itemize}
+        \item Sistem menggunakan basis data relasional yang terstruktur untuk penyimpanan dan pengambilan data yang efisien.
+        \item Penggunaan Foreign Keys dan Indexing pada database untuk menjaga integritas dan kecepatan akses data.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Analisis Sistem}
+Analisis sistem bertujuan untuk memahami mekanisme kerja dan permasalahan pada operasional UMKM Ice Tea saat ini, terutama terkait ketidakteraturan data stok yang sering menyebabkan hambatan penjualan.
+
+\subsubsection{Use Case Diagram}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{use_case_diagram.png}
+    \caption{Use Case Diagram}
+    \label{fig:use_case}
+\end{figure}
+
+Diagram Use Case mendeskripsikan fungsionalitas sistem dari sudut pandang pengguna. Tabel berikut merincikan setiap use case yang tersedia dalam sistem informasi penjualan Ice Tea:
+
+\begin{table}[htbp]
+\centering
+\caption{Definisi Use Case}
+\label{tab:def_use_case}
+\small
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{No} & \textbf{Use Case} & \textbf{Deskripsi} \\ \hline
+1 & Otentikasi Admin (Login) & Proses verifikasi identitas administrator untuk mendapatkan akses ke panel pengelolaan. \\
+  & & a. Memasukkan kredensial (username \& password). \\
+  & & b. Validasi data oleh sistem. \\
+  & & c. Pengalihan ke halaman Dashboard Utama. \\ \hline
+2 & Manajemen Katalog Produk & Admin melakukan pengelolaan data master menu minuman. \\
+  & & a. Menambah varian menu baru beserta gambar. \\
+  & & b. Memperbarui informasi harga atau deskripsi. \\
+  & & c. Menghapus menu yang tidak lagi dijual. \\ \hline
+3 & Monitoring \& Update Stok & Admin memantau dan mengelola jumlah persediaan barang. \\
+  & & a. Melihat sisa stok per item. \\
+  & & b. Menambah jumlah stok secara manual (restock). \\
+  & & c. Menerima notifikasi visual jika stok menipis. \\ \hline
+4 & Validasi Pesanan Masuk & Admin memproses transaksi yang masuk dari pelanggan. \\
+  & & a. Melihat daftar pesanan baru. \\
+  & & b. Memperbarui status pesanan (Selesai/Batal). \\
+  & & c. Memicu pengurangan stok otomatis saat status "Selesai". \\ \hline
+5 & Visualisasi Dashboard & Admin memantau ringkasan kinerja bisnis. \\
+  & & a. Melihat grafik tren pendapatan bulanan. \\
+  & & b. Melihat statistik produk terlaris (Top 5). \\
+  & & c. Memantau total transaksi harian. \\ \hline
+6 & Penelusuran Katalog (User) & Pelanggan melihat daftar produk yang ditawarkan. \\
+  & & a. Menampilkan gambar dan harga produk. \\
+  & & b. Menampilkan status ketersediaan stok terkini. \\ \hline
+7 & Checkout Pesanan & Pelanggan melakukan proses pembelian. \\
+  & & a. Memilih item dan jumlah pembelian. \\
+  & & b. Mengisi data diri dan metode pembayaran. \\
+  & & c. Menyimpan data pesanan ke database sistem. \\ \hline
+8 & Integrasi WhatsApp & Sistem menghubungkan pelanggan dengan admin via WhatsApp. \\
+  & & a. Pembuatan format teks pesanan otomatis (string generator). \\
+  & & b. Redireksi ke aplikasi WhatsApp. \\ \hline
+\end{tabularx}
+\end{table}
+
+Berikut adalah penjabaran langkah-langkah interaksi antara aktor dan sistem untuk beberapa proses utama.
+
+\begin{table}[htbp]
+\centering
+\caption{Skenario Login Administrator}
+\label{tab:skenario_login}
+\small
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Identifikasi} & \textbf{Keterangan} \\ \hline
+Nama Use Case & Otentikasi Admin (Login) \\ \hline
+Tujuan & Memverifikasi hak akses sebelum masuk ke panel manajemen \\ \hline
+Aktor & Administrator \\ \hline
+Kondisi Awal & Halaman login ditampilkan, sesi admin belum aktif \\ \hline
+Kondisi Akhir & Admin berhasil masuk dan diarahkan ke Dashboard \\ \hline
+\textbf{Aksi Aktor} & \textbf{Reaksi Sistem} \\ \hline
+1. Admin mengakses URL /login & 2. Sistem menampilkan antarmuka formulir login \\ \hline
+3. Admin memasukkan username dan password, lalu menekan tombol "Masuk" & 4. Sistem memproses enkripsi dan memvalidasi kecocokan data dengan database \\ \hline
+ & 5. Jika Valid: Sistem membuat sesi login dan mengarahkan ke halaman Dashboard \\ \hline
+ & 6. Jika Tidak Valid: Sistem menolak akses dan menampilkan pesan peringatan "Kredensial Salah" \\ \hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Skenario Checkout Pesanan (Pelanggan)}
+\label{tab:skenario_checkout}
+\small
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Identifikasi} & \textbf{Keterangan} \\ \hline
+Nama Use Case & Checkout Pesanan \\ \hline
+Tujuan & Pelanggan melakukan pembelian menu minuman \\ \hline
+Aktor & Pelanggan (User) \\ \hline
+Kondisi Awal & Pelanggan berada di halaman menu dan stok tersedia \\ \hline
+Kondisi Akhir & Data pesanan disimpan di database dengan status "Baru" \\ \hline
+\textbf{Aksi Aktor} & \textbf{Reaksi Sistem} \\ \hline
+1. Pelanggan memilih menu dan menentukan jumlah item (kuantitas) & 2. Sistem memvalidasi ketersediaan stok untuk jumlah yang diminta \\ \hline
+3. Pelanggan menekan tombol "Pesan Sekarang" & 4. Sistem menampilkan formulir detail pesanan (Nama \& Metode Bayar) \\ \hline
+5. Pelanggan melengkapi data dan menekan tombol "Konfirmasi" & 6. Sistem menyimpan data transaksi ke tabel pesanan \\ \hline
+ & 7. Sistem mengkalkulasi total harga secara otomatis \\ \hline
+ & 8. Sistem memicu fungsi redirect ke fitur WhatsApp \\ \hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Skenario Use Case – Integrasi WhatsApp}
+\label{tab:skenario_wa}
+\small
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Identifikasi} & \textbf{Keterangan} \\ \hline
+Nama Use Case & Integrasi Pesanan via WhatsApp \\ \hline
+Tujuan & Mengirimkan detail pesanan terformat ke nomor admin \\ \hline
+Aktor & Pelanggan (User) \\ \hline
+Kondisi Awal & Data pesanan telah berhasil disimpan di database local \\ \hline
+Kondisi Akhir & Aplikasi WhatsApp terbuka dengan pesan pre-filled \\ \hline
+\textbf{Aksi Aktor} & \textbf{Reaksi Sistem} \\ \hline
+1. (Otomatis dari langkah sebelumnya) & 2. Sistem menyusun string pesan berisi: Nama Menu, Jumlah, Total Harga, dan Metode Bayar \\ \hline
+ & 3. Sistem membuka tab baru menuju API WhatsApp (wa.me) \\ \hline
+4. Aplikasi/Web WhatsApp terbuka menampilkan ruang obrolan dengan Admin & 5. Sistem menampilkan teks pesanan di kolom input pesan \\ \hline
+6. Pelanggan menekan tombol "Kirim" pada WhatsApp & 7. Pesan terkirim ke perangkat Admin sebagai notifikasi pesanan masuk \\ \hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Activity Diagram}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{activity_diagram.png}
+    \caption{Activity Diagram}
+    \label{fig:activity}
+\end{figure}
+
+Diagram Aktivitas menggambarkan alur kerja (workflow) dari sudut pandang operasional sistem. Berikut adalah rincian aktivitas utama dalam proses pemesanan:
+
+\begin{table}[htbp]
+\centering
+\caption{Activity Diagram}
+\label{tab:activity_diagram}
+\small
+\begin{tabularx}{\textwidth}{|l|l|X|l|}
+\hline
+\textbf{No} & \textbf{Aktivitas} & \textbf{Deskripsi} & \textbf{Aktor} \\ \hline
+1. & Membuka Website & Pelanggan mengakses halaman utama aplikasi. & Pelanggan \\ \hline
+2. & Menampilkan Katalog & Sistem memuat data produk dan status stok dari database. & Sistem \\ \hline
+3. & Memilih Menu & Pelanggan memilih varian minuman dan jumlah pesanan. & Pelanggan \\ \hline
+4. & Cek Stok & Sistem memverifikasi apakah stok mencukupi untuk jumlah yang diminta. & Sistem \\ \hline
+5. & Checkout \& Validasi Data & Pelanggan mengisi data pemesan; sistem menyimpan transaksi dengan status 'Baru'. & Pelanggan \& Sistem \\ \hline
+6. & Redirect Whatsapp & Sistem mengalihkan pelanggan ke aplikasi WhatsApp dengan format pesan otomatis. & Sistem \\ \hline
+7. & Konfirmasi Pesanan & Pelanggan mengirimkan pesan WhatsApp ke admin sebagai bukti finalisasi pesanan. & Pelanggan \\ \hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Sequence Diagram}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sequence_diagram.png}
+    \caption{Sequence Diagram}
+    \label{fig:sequence}
+\end{figure}
+
+Diagram Urutan memvisualisasikan interaksi teknis antar komponen kode (MVC) selama proses checkout berlangsung. Tabel berikut menjelaskan pesan (message) yang dipertukarkan:
+
+\begin{table}[htbp]
+\centering
+\caption{Sequence Diagram}
+\label{tab:sequence_diagram}
+\small
+\begin{tabularx}{\textwidth}{|l|l|l|l|X|}
+\hline
+\textbf{No} & \textbf{Pesan (Message)} & \textbf{Dari (Source)} & \textbf{Ke (Target)} & \textbf{Deskripsi Teknis} \\ \hline
+1. & pilihMenu() & Pelanggan & View (Halaman Checkout) & Interaksi awal memilih item pada antarmuka. \\ \hline
+2. & inputData() & Pelanggan & View & Input nama dan metode bayar pada form modal. \\ \hline
+3. & store() & View & OrderController & Pengiriman data formulir via HTTP POST Request. \\ \hline
+4. & validateStock() & OrderController & OrderController & Logika internal untuk memastikan stok tersedia sebelum disimpan. \\ \hline
+5. & create() & OrderController & Model Pesanan & Instruksi pembuatan objek data baru. \\ \hline
+6. & INSERT & Model Pesanan & Database (MySQL) & Eksekusi query SQL untuk menyimpan data permanen. \\ \hline
+7. & redirect() & OrderController & View & Instruksi pengalihan halaman menuju API WhatsApp. \\ \hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Antarmuka (UI)}
+Tahap desain antarmuka merancang arsitektur visual untuk mentransformasi manajemen stok manual menjadi sistem digital yang intuitif dan user-friendly. Fokus utama desain adalah Dashboard Admin yang menyajikan visualisasi statistik performa penjualan secara real-time menggunakan grafik analitik guna mempermudah pengambilan keputusan strategis.
+
+Adapun Perancangan antarmuka sistem mencakup beberapa halaman utama yang memfasilitasi interaksi pengguna dengan aplikasi, yaitu:
+\begin{itemize}
+    \item \textbf{Halaman Login Admin}: Halaman autentikasi khusus bagi administrator untuk mengakses panel pengelolaan data.
+    \item \textbf{Dashboard Utama}: Pusat kendali bagi admin yang menampilkan:
+    \begin{enumerate}
+        \item \textbf{Ringkasan Penjualan}: Statistik total pesanan masuk dan omset harian.
+        \item \textbf{Peringatan Stok}: Daftar item menu yang memiliki jumlah stok menipis (< 10 unit).
+        \item \textbf{Grafik Analitik}: Visualisasi tren pendapatan bulanan dan produk terlaris.
+    \end{enumerate}
+    \item \textbf{Halaman Katalog Menu (Publik)}: Antarmuka utama bagi pelanggan yang menampilkan daftar minuman beserta harga, foto produk, dan status ketersediaan stok secara real-time.
+    \item \textbf{Manajemen Data}:
+    \begin{enumerate}
+        \item \textbf{Halaman Menu}: Formulir untuk menambah, mengedit, dan menghapus data produk minuman.
+        \item \textbf{Halaman Stok}: Tabel interaktif untuk memantau dan memperbarui jumlah stok barang.
+        \item \textbf{Halaman Pesanan}: Daftar riwayat transaksi pelanggan beserta fitur untuk mengubah status pesanan (Validasi/Batal).
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Perancangan Basis Data}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{erd_diagram.png}
+    \caption{Tabel ERD}
+    \label{fig:erd_diagram}
+\end{figure}
+
+Sistem ini menggunakan basis data relasional untuk menyimpan dan mengelola data transaksi serta inventaris. Berikut adalah spesifikasi tabel-tabel yang digunakan dalam database:
+
+\begin{enumerate}
+    \item \textbf{Tabel admin}: Tabel ini berfungsi untuk menyimpan data akun administrator yang memiliki hak akses penuh terhadap sistem.
+    \begin{itemize}
+        \item \textbf{id (Primary Key)}: Identifikasi unik pengguna (administrator).
+        \item \textbf{username}: Nama pengguna (username) untuk keperluan login ke dashboard.
+        \item \textbf{password}: Kata sandi yang tersimpan dalam sistem untuk keamanan autentikasi.
+    \end{itemize}
+
+    \item \textbf{Tabel menu}: Tabel ini menyimpan seluruh data katalog produk minuman yang dijual, termasuk informasi stok dan penjualan.
+    \begin{itemize}
+        \item \textbf{id (Primary Key)}: Identifikasi unik untuk setiap varian menu.
+        \item \textbf{nama\_menu}: Nama produk minuman yang ditampilkan di katalog.
+        \item \textbf{harga}: Harga jual produk per unit.
+        \item \textbf{deskripsi}: Penjelasan rinci mengenai komposisi atau rasa minuman.
+        \item \textbf{gambar}: Nama file gambar produk yang diunggah.
+        \item \textbf{stok}: Jumlah ketersediaan barang fisik saat ini (Real-time stock).
+        \item \textbf{terjual}: Counter jumlah item yang telah berhasil terjual.
+    \end{itemize}
+
+    \item \textbf{Tabel pesanan}: Tabel ini mencatat seluruh riwayat transaksi pembelian yang dilakukan oleh pelanggan.
+    \begin{itemize}
+        \item \textbf{id (Primary Key)}: Identifikasi unik nomor pesanan (Order ID).
+        \item \textbf{detail\_pesanan}: Rincian item yang dibeli, termasuk nama menu dan jumlahnya (disimpan dalam format teks).
+        \item \textbf{total\_harga}: Akumulasi total biaya yang harus dibayar pelanggan.
+        \item \textbf{metode\_pembayaran}: Jenis pembayaran yang dipilih (misal: COD, Transfer).
+        \item \textbf{status\_pesanan}: Status terkini transaksi ('Baru', 'Selesai', atau 'Batal') yang menentukan pemotongan stok.
+        \item \textbf{waktu\_pesan}: Stempel waktu (timestamp) kapan pesanan dibuat oleh sistem.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Tabel Relasi Antar Entitas} \\
+Relasi antar entitas menggambarkan hubungan logika antara tabel-tabel dalam basis data untuk mendukung proses bisnis. Berikut adalah definisi relasinya:
+
+\begin{table}[htbp]
+\centering
+\caption{Tabel Relasi Antar Entitas}
+\label{tab:relasi_entitas}
+\small
+\begin{tabularx}{\textwidth}{|l|l|l|X|}
+\hline
+\textbf{Entitas A} & \textbf{Entitas B} & \textbf{Jenis Relasi} & \textbf{Keterangan Relasi} \\ \hline
+Admin & Menu & One-to-Many (1:N) & Satu akun administrator dapat mengelola (menambah, mengedit, menghapus) banyak data menu produk. \\ \hline
+Admin & Pesanan & One-to-Many (1:N) & Satu akun administrator bertanggung jawab untuk memvalidasi dan memproses banyak pesanan yang masuk dari pelanggan. \\ \hline
+Menu & Pesanan & Many-to-Many (M:N) & Satu jenis menu dapat dipesan dalam banyak pesanan berbeda, dan satu pesanan dapat berisi banyak jenis menu. \\ \hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Algoritma Fungsi Sistem Terintegrasi}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{flowchart_logic.png}
+    \caption{Flowchart Logika Sistem (Whatsapp API \& Automasi Stok)}
+    \label{fig:flowchart_logic}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diagram-alir-penelitian.png}
+    \caption{Diagram Alir Penelitian}
+    \label{fig:flowchart_penelitian}
+\end{figure}
+
+Algoritma sistem dirancang untuk menangani alur transaksi secara end-to-end, mulai dari pemilihan produk oleh pelanggan di sisi frontend hingga pembaruan laporan penjualan di sisi backend. Proses dimulai ketika pelanggan memilih menu; sistem akan melakukan validasi ketersediaan stok secara otomatis sebelum mengizinkan pelanggan mengisi data pemesanan. Setelah data dikonfirmasi, sistem tidak hanya menyimpan riwayat transaksi ke dalam basis data dengan status 'Baru', tetapi juga secara cerdas menyusun tautan API WhatsApp yang berisi rincian pesanan untuk memfasilitasi komunikasi langsung ke administrator.
+
+Di sisi operasional, fitur automasi stok menjadi inti dari efisiensi sistem. Mekanisme ini dipicu ketika administrator memvalidasi pembayaran dan mengubah status pesanan menjadi 'Selesai'. Pada titik ini, logika backend secara otomatis mengeksekusi instruksi pengurangan kuantitas stok produk terkait dan memperbarui akumulasi pendapatan harian pada tabel laporan. Integrasi yang mulus antara antarmuka pemesanan, gerbang komunikasi eksternal (WhatsApp), dan manajemen data internal ini memastikan bahwa informasi yang tersaji di Dashboard Analitik selalu akurat dan real-time, meminimalkan risiko kesalahan pencatatan manual.
+
+\subsection{Rencana Pengujian Sistem}
+Tahap akhir dari metodologi penelitian ini adalah penyusunan rencana pengujian untuk menjamin kualitas dan reliabilitas sistem Website Ice Tea sebelum dioperasikan secara penuh. Pengujian difokuskan pada validasi fungsionalitas utama, yaitu akurasi automasi stok dan ketepatan penyajian data pada dashboard analitik. Rencana pengujian ini dirancang untuk mendeteksi potensi kesalahan logika (logic error) yang mungkin terjadi pada saat pemrosesan data transaksi serta memastikan bahwa integrasi antara frontend dan backend berjalan harmonis.
+
+Metode pengujian yang diterapkan merujuk pada prinsip Code Coverage, di mana setiap baris kode yang menangani logika pengurangan stok akan dieksekusi melalui berbagai skenario uji. Skenario tersebut mencakup pengujian terhadap validasi input pesanan, keberhasilan proses pemotongan saldo stok di database MySQL, hingga sinkronisasi data pada grafik pendapatan di dashboard admin. Dengan rencana pengujian yang terukur ini, sistem diharapkan memiliki tingkat kepercayaan yang tinggi dalam menyediakan informasi inventaris yang akurat serta mampu mendukung operasional bisnis UMKM Ice Tea secara profesional dan akuntabel.

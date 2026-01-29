@@ -1,0 +1,40 @@
+\subsection{Deskripsi Aplikasi}
+Proyek ini mengembangkan ``Website Ice Tea'', sebuah sistem informasi penjualan berbasis web yang dirancang sebagai solusi komprehensif untuk mengotomatisasi alur kerja operasional bisnis. Sistem ini bertindak sebagai infrastruktur digital terintegrasi yang menggabungkan fungsi katalog produk, manajemen transaksi, dan pelaporan bisnis dalam satu platform. Dengan adanya aplikasi ini, pengelolaan data produk dan pemantauan aktivitas penjualan dapat dilakukan secara fleksibel tanpa batasan ruang dan waktu, memberikan efisiensi yang signifikan bagi pemilik usaha.
+
+Dari sisi teknis, aplikasi ini dibangun menggunakan fondasi Framework Laravel yang menerapkan arsitektur Model-View-Controller (MVC). Pendekatan ini memisahkan logika aplikasi, data, dan tampilan antarmuka, yang bertujuan untuk meningkatkan keamanan sistem dan mempermudah pemeliharaan kode. Pada sisi tampilan (frontend), aplikasi memanfaatkan fitur Blade Template Engine yang dikombinasikan dengan HTML, CSS, dan JavaScript untuk menciptakan antarmuka yang responsif. Sementara itu, pengelolaan data ditangani oleh MySQL yang dioptimalkan dengan fitur Eloquent ORM untuk menjamin akurasi penyimpanan data transaksi.
+
+Fitur unggulan sistem ini mencakup Automasi Manajemen Stok dan Dashboard Analitik. Fitur automasi memastikan setiap transaksi yang terjadi akan langsung memotong stok persediaan secara real-time, meminimalisir risiko kesalahan pencatatan. Selain itu, sistem juga dilengkapi integrasi WhatsApp API untuk mempercepat komunikasi pemesanan antara pelanggan dan admin. Bagi pemilik usaha, tersedia Dashboard Analitik yang menyajikan visualisasi grafik tren penjualan harian dan bulanan, yang berfungsi sebagai alat bantu utama dalam pengambilan keputusan strategis.
+
+\subsection{Latar Belakang}
+Di era transformasi digital saat ini, sektor Usaha Mikro, Kecil, dan Menengah (UMKM) dituntut untuk beradaptasi dengan teknologi guna mempertahankan daya saing pasar \cite{Kawung2022}. Namun, pada praktiknya, masih banyak pelaku usaha, termasuk unit usaha Ice Tea, yang menjalankan operasional bisnisnya secara konvensional \cite{Fatmah2025}. Ketergantungan pada proses manual seringkali menjadi hambatan utama dalam upaya pengembangan skala bisnis \cite{Yuniarto2025}. Proses operasional yang belum terdigitalisasi ini tidak hanya memperlambat pelayanan kepada pelanggan, tetapi juga menyulitkan pemilik usaha dalam memantau pertumbuhan bisnisnya secara akurat \cite{Novandra2024}.
+
+Permasalahan spesifik yang menjadi sorotan adalah ketidakefisienan dalam pengelolaan data transaksi dan inventaris \cite{Fadhilah2025}. Pencatatan penjualan yang dilakukan menggunakan media kertas atau buku catatan sederhana memiliki risiko tinggi terhadap kesalahan manusia (human error), kerusakan fisik dokumen, hingga hilangnya riwayat data penting \cite{BrGinting2025}. Lebih lanjut, pemantauan stok bahan baku yang tidak terintegrasi langsung dengan data penjualan sering menyebabkan terjadinya selisih antara data fisik di gudang dengan catatan pembukuan, yang pada akhirnya berdampak pada kerugian finansial yang tidak terdeteksi \cite{Angellin2023}.
+
+Kondisi tersebut diperburuk dengan sulitnya pemilik usaha mendapatkan informasi performa bisnis secara real-time \cite{Munambar2024}. Tanpa adanya sistem basis data yang terpusat, proses rekapitulasi laporan pendapatan harian maupun bulanan memakan waktu yang lama dan rentan terhadap ketidakakuratan perhitungan \cite{Lusitania2024}. Oleh karena itu, diperlukan sebuah solusi sistem informasi penjualan digital yang mampu mengintegrasikan manajemen stok, transaksi, dan pelaporan secara otomatis \cite{Tangon2025}. Pengembangan sistem ini diharapkan dapat mengatasi kendala operasional manual tersebut dan membawa tata kelola bisnis UMKM Ice Tea menjadi lebih profesional dan akuntabel \cite{Yuniarto2025}.
+
+\subsection{Rumusan Masalah}
+Berdasarkan latar belakang permasalahan yang telah diuraikan di atas, maka dapat ditarik beberapa rumusan masalah sebagai berikut:
+\begin{enumerate}
+    \item Bagaimana membangun mekanisme automasi stok pada sistem penjualan menggunakan Framework Laravel agar setiap transaksi dapat secara langsung memperbarui data inventaris, guna menghindari ketidaksinkronan data fisik dan catatan manual?
+    \item Bagaimana merancang fitur Dashboard Analitik yang mampu mengolah data transaksi mentah menjadi informasi visual yang informatif, sehingga pemilik usaha dapat memantau tren penjualan secara real-time tanpa harus melakukan rekapitulasi berulang?
+    \item Bagaimana mengintegrasikan sistem komunikasi melalui WhatsApp API ke dalam platform web agar koordinasi pesanan antara pelanggan dan admin menjadi lebih cepat dan terdokumentasi dengan baik?
+    \item Sejauh mana implementasi sistem manajemen terpusat dengan basis data MySQL dan fitur Eloquent ORM dapat meminimalisir risiko human error dalam pencatatan laporan keuangan harian?
+\end{enumerate}
+
+\subsection{Tujuan Penelitian}
+\begin{enumerate}
+    \item Membangun sebuah sistem penjualan berbasis web yang mampu menjalankan fungsi automasi stok, sehingga setiap aktivitas transaksi dapat tersinkronisasi langsung dengan data inventaris bahan baku untuk menjamin akurasi data.
+    \item Mengembangkan fitur Dashboard Analitik yang dapat menyajikan visualisasi data penjualan secara harian maupun periodik, guna memudahkan pemilik usaha dalam menganalisis performa bisnis dan tren produk.
+    \item Mengimplementasikan integrasi WhatsApp API ke dalam website sebagai saluran komunikasi yang efisien untuk mempercepat proses konfirmasi dan koordinasi pesanan antara admin dan pelanggan.
+    \item Menyediakan sistem manajemen yang terpusat dengan menggunakan teknologi Framework Laravel dan MySQL untuk meningkatkan standar profesionalisme dalam pengelolaan laporan transaksi dan operasional UMKM Ice Tea secara keseluruhan.
+\end{enumerate}
+
+\subsection{Lingkup Penelitian}
+Agar pembahasan dalam laporan ini lebih fokus dan tidak melebar, maka ditetapkan batasan masalah atau lingkup penelitian sebagai berikut:
+\begin{enumerate}
+    \item Sistem dikembangkan menggunakan Framework Laravel (backend), HTML, CSS, dan JavaScript (frontend), serta MySQL sebagai sistem manajemen basis data.
+    \item Pengelolaan sistem dibatasi pada satu akun administrator utama yang memiliki hak akses penuh untuk mengelola katalog produk, stok, dan memantau laporan penjualan.
+    \item Fitur automasi stok berfokus pada pengurangan jumlah ketersediaan bahan secara otomatis berdasarkan pesanan yang telah dikonfirmasi atau divalidasi oleh admin.
+    \item Integrasi WhatsApp API berfungsi sebagai media pengiriman detail pesanan secara instan dari sisi pelanggan ke nomor admin yang terdaftar.
+    \item Dashboard analitik menyajikan ringkasan data berupa statistik produk terlaris dan grafik pendapatan dalam rentang waktu harian, mingguan, hingga bulanan.
+\end{enumerate}

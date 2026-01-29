@@ -1,0 +1,350 @@
+% Template LaTeX untuk Laporan Proyek II
+% Based on bukped template
+
+% Document Class
+\documentclass[12pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Times New Roman
+\usepackage{courier}  % Courier for monospace
+\usepackage{helvet}   % Helvetica for sans-serif
+\usepackage{amsmath}
+\usepackage[english,indonesian]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[format=hang,font=footnotesize,labelfont=bf]{caption}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{microtype}
+
+% Code Listing Configuration
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    extendedchars=true,
+    literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1,
+}
+
+% Page Setup
+\geometry{
+    top=3cm,
+    bottom=3cm,
+    left=4cm,
+    right=3cm
+}
+
+% Title Formatting
+\titleformat{\section}
+    {\normalfont\fontsize{16}{19}\bfseries\centering}{\thesection}{1em}{}
+    
+\titleformat{\subsection}
+    {\normalfont\fontsize{12}{14}\bfseries}{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+    {\normalfont\fontsize{12}{14}\bfseries}{\thesubsubsection}{1em}{}
+
+% Spacing
+\onehalfspacing
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% Graphicspath
+\graphicspath{{figures/}}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=blue,
+}
+
+% Table of Contents customization
+\renewcommand{\contentsname}{DAFTAR ISI}
+\renewcommand{\cfttoctitlefont}{\hfill\fontsize{16}{19}\selectfont\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+% Lists customization
+\renewcommand{\listtablename}{DAFTAR TABEL}
+\renewcommand{\cftlottitlefont}{\hfill\fontsize{16}{19}\selectfont\bfseries}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+\renewcommand{\listfigurename}{DAFTAR GAMBAR}
+\renewcommand{\cftloftitlefont}{\hfill\fontsize{16}{19}\selectfont\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill}
+
+% Optimize List Spacing
+\setlist[enumerate]{itemsep=0.5em, topsep=0.2em, parsep=0pt, partopsep=0pt, leftmargin=*}
+\setlist[itemize]{itemsep=0.5em, topsep=0.2em, parsep=0pt, partopsep=0pt, leftmargin=*}
+
+% Prevent Window/Orphans
+\widowpenalty=10000
+\clubpenalty=10000
+
+% Equations list
+\newcommand{\listequationsname}{DAFTAR RUMUS}
+\newlistof{myequations}{equ}{\listequationsname}
+\newcommand{\myequations}[1]{%
+\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+\renewcommand{\cftequtitlefont}{\hfill\fontsize{16}{19}\selectfont\bfseries}
+\renewcommand{\cftafterequtitle}{\hfill}
+\setlength{\cftmyequationsindent}{0pt}
+\newcommand{\listofequations}{\listofmyequations}
+
+% Subsection numbering
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+% --- Custom Commands for User Snippet ---
+\makeatletter
+\newcommand{\myTitle}[1]{\def\@myTitle{#1}}
+\newcommand{\myAuthorOne}[2]{\def\@myNameOne{#1}\def\@myNIMOne{#2}}
+\newcommand{\myAuthorTwo}[2]{\def\@myNameTwo{#1}\def\@myNIMTwo{#2}}
+\newcommand{\myYear}[1]{\def\@myYear{#1}}
+
+% Initialize default values
+\def\@myTitle{Judul Penelitian}
+\def\@myNameOne{Nama Mahasiswa 1}
+\def\@myNIMOne{NIM 1}
+\def\@myNameTwo{Nama Mahasiswa 2}
+\def\@myNIMTwo{NIM 2}
+\def\@myYear{Tahun}
+
+% Redefine \maketitle
+\renewcommand{\maketitle}{
+    \begin{titlepage}
+        \centering
+        \vspace*{0.5cm}
+        
+        % Judul Penelitian
+        {\fontsize{14}{16}\selectfont\bfseries
+        \@myTitle\par}
+        
+        \vspace{1.5cm}
+        
+        % Jenis Laporan
+        {\fontsize{12}{14}\selectfont
+        \textbf{LAPORAN PROYEK II}\par}
+        \vspace{0.5cm}
+        {\fontsize{12}{14}\selectfont
+        Diajukan untuk Memenuhi Kelulusan Matakuliah Proyek 2 pada Program Studi DIV Teknik Informatika\par}
+        
+        \vspace{1.5cm}
+        
+        % Logo
+        \IfFileExists{logo.png}{
+            \includegraphics[width=0.4\textwidth]{logo.png}
+        }{
+            {\fontsize{16}{19}\bfseries Logo\par}
+        }
+
+        \vspace{1.5cm}
+        
+        % Penulis
+        {\fontsize{12}{14}\selectfont
+        \textbf{DISUSUN OLEH :}\par}
+        \vspace{0.5cm}
+        
+        \begin{tabular}{ll}
+            \textbf{\@myNIMOne} & \textbf{\@myNameOne} \\
+            \textbf{\@myNIMTwo} & \textbf{\@myNameTwo}
+        \end{tabular}\par
+        
+        \vfill
+        
+        % Program Studi dan Informasi
+        {\fontsize{14}{16}\selectfont\bfseries
+        PROGRAM STUDI DIV TEKNIK INFORMATIKA\par
+        SEKOLAH VOKASI\par
+        UNIVERSITAS LOGISTIK DAN BISNIS INTERNASIONAL\par
+        BANDUNG\par
+        \@myYear\par}
+        
+    \end{titlepage}
+    \newpage
+}
+\makeatother
+
+% --- SOTA and Environments from template ---
+\newenvironment{sototable}
+    {\begin{table}[htbp]
+    \centering
+    \caption{State-of-the-Art Penelitian}
+    \label{tab:sota}}
+    {\end{table}}
+    
+\newenvironment{summary}{}{}
+\newenvironment{background}{}{}
+\newenvironment{literaturereview}{}{}
+\newenvironment{researchgap}{}{}
+\newenvironment{novelty}{}{}
+
+% Bibliography
+\usepackage[
+    backend=bibtex,
+    style=authoryear,
+    sorting=nyt,
+    maxbibnames=99,
+    dashed=false,
+    url=false,
+    doi=true,
+]{biblatex}
+\urlstyle{same}
+\addbibresource{references.bib}
+\addbibresource{include.bib}
+\let\cite\parencite
+\renewcommand*{\finalnamedelim}{\addspace\&\addspace}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+\renewbibmacro{in:}{}
+\DeclareFieldFormat{pages}{\normalfont #1}
+\DeclareFieldFormat{booktitle}{\addspace\textit{#1}}
+\DeclareFieldFormat{journaltitle}{\addspace\textit{#1}}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+\emergencystretch=1em
+\appto{\bibsetup}{\sloppy\RaggedRight}
+
+% --- METADATA ---
+\myTitle{IMPLEMENTASI SISTEM PENJUALAN DIGITAL DENGAN AUTOMASI STOK DAN DASHBOARD ANALITIK PADA UMKM ICE TEA}
+\myAuthorOne{Rafli Mochamad Ramadhan}{714240059}
+\myAuthorTwo{Muhammad Malik Nur}{714240062}
+\myYear{2026}
+
+% Beginning of Document
+\begin{document}
+\rmfamily
+
+% Title Page
+\maketitle
+
+% Front Matter
+\pagenumbering{roman}
+
+% Lembar Pengesahan
+\input{chapters/lembar_pengesahan}
+
+% Lembar Persetujuan
+\input{chapters/lembar_persetujuan}
+
+% Surat Pernyataan
+\input{chapters/pernyataan}
+
+% ABSTRAK (Indo)
+\input{chapters/abstrak}
+
+% ABSTRACT (English)
+\input{chapters/abstract}
+
+% KATA PENGANTAR
+\input{chapters/kata_pengantar}
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{DAFTAR ISI}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{DAFTAR TABEL}
+\listoftables
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{DAFTAR GAMBAR}
+\listoffigures
+\clearpage
+
+% Main Content
+\setcounter{section}{0}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section*{BAB 1 \\ PENDAHULUAN}
+\phantomsection
+\addcontentsline{toc}{section}{BAB 1 PENDAHULUAN}
+\refstepcounter{section}
+\input{chapters/bab1}
+\clearpage
+
+\section*{BAB 2 \\ LANDASAN TEORI}
+\phantomsection
+\addcontentsline{toc}{section}{BAB 2 LANDASAN TEORI}
+\refstepcounter{section}
+\input{chapters/bab2}
+\clearpage
+
+\section*{BAB 3 \\ METODE PENELITIAN}
+\phantomsection
+\addcontentsline{toc}{section}{BAB 3 METODE PENELITIAN}
+\refstepcounter{section}
+\input{chapters/bab3}
+\clearpage
+
+\section*{BAB 4 \\ HASIL DAN PEMBAHASAN}
+\phantomsection
+\addcontentsline{toc}{section}{BAB 4 HASIL DAN PEMBAHASAN}
+\refstepcounter{section}
+\input{chapters/bab4}
+\clearpage
+
+\section*{BAB 5 \\ KESIMPULAN DAN SARAN}
+\phantomsection
+\addcontentsline{toc}{section}{BAB 5 KESIMPULAN DAN SARAN}
+\refstepcounter{section}
+\input{chapters/bab5}
+\clearpage
+
+% References
+\clearpage
+\section*{DAFTAR PUSTAKA}
+\phantomsection
+\addcontentsline{toc}{section}{DAFTAR PUSTAKA}
+\printbibliography[heading=none]
+\clearpage
+
+% Appendix
+\clearpage
+\section*{LAMPIRAN}
+\phantomsection
+\addcontentsline{toc}{section}{LAMPIRAN}
+\input{chapters/lampiran}
+\clearpage
+
+\end{document}

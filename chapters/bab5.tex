@@ -1,0 +1,17 @@
+\subsection{Kesimpulan}
+Berdasarkan hasil rancang bangun, implementasi, dan pengujian yang telah dilakukan pada website UMKM Ice Tea, maka dapat diambil kesimpulan sebagai berikut:
+\begin{enumerate}
+    \item \textbf{Keberhasilan Digitalisasi Operasional}: Sistem informasi ini berhasil mengubah proses bisnis UMKM Ice Tea dari pencatatan konvensional menjadi digital. Fitur pemesanan online mempermudah pelanggan dalam bertransaksi, sementara sisi admin mendapatkan efisiensi dalam pengelolaan data pesanan secara terpusat.
+    \item \textbf{Akurasi Manajemen Stok Otomatis}: Implementasi logika Automated Stock Update pada framework Laravel terbukti efektif. Sistem secara otomatis mengurangi jumlah stok di database saat pesanan berstatus ``Selesai'', yang secara signifikan mengurangi risiko kesalahan manusia (human error) dalam penghitungan manual inventaris.
+    \item \textbf{Visualisasi Data yang Informatif}: Penggunaan Dashboard Analitik dengan library Chart.js memberikan kemudahan bagi pemilik usaha dalam membaca tren penjualan harian dan bulanan. Hal ini memungkinkan pemilik untuk melakukan evaluasi performa bisnis secara cepat melalui grafik batang dan lingkaran yang responsif.
+    \item \textbf{Stabilitas Kode dan Pengujian}: Dengan mengadopsi struktur arsitektur MVC (Model-View-Controller) dan pengujian berbasis Code Coverage, sistem ini memiliki struktur kode yang rapi dan mudah untuk dikelola (maintainable). Hasil pengujian menunjukkan bahwa fungsi-fungsi kritis seperti checkout dan pembaruan stok berjalan dengan tingkat keberhasilan yang tinggi.
+\end{enumerate}
+
+\subsection{Saran}
+Meskipun sistem ini telah berfungsi dengan baik sesuai dengan tujuan awal, terdapat beberapa saran untuk pengembangan lebih lanjut agar sistem menjadi lebih sempurna:
+\begin{enumerate}
+    \item \textbf{Integrasi Payment Gateway}: Disarankan untuk menambahkan fitur pembayaran otomatis melalui Payment Gateway (seperti Midtrans atau Xendit) sehingga status pesanan dan stok dapat terupdate secara otomatis segera setelah pembayaran dikonfirmasi oleh sistem bank, tanpa perlu validasi manual oleh admin.
+    \item \textbf{Sistem Notifikasi Stok Rendah}: Pengembangan fitur pemberitahuan otomatis (via WhatsApp atau Email) ketika stok bahan baku mencapai ambang batas minimal (reorder point), agar pemilik usaha dapat melakukan pengadaan barang tepat waktu.
+    \item \textbf{Keamanan dan Optimasi}: Untuk pengembangan ke depan, perlu dilakukan penguatan pada sisi keamanan data (seperti pembatasan rate limiting pada API) dan optimasi kecepatan loading dashboard jika data transaksi di masa mendatang sudah mencapai ribuan record.
+    \item \textbf{Modul Laporan Periodik}: Penambahan fitur untuk mengekspor data penjualan ke dalam format PDF atau Excel secara otomatis setiap akhir bulan guna mempermudah pengarsipan laporan keuangan fisik.
+\end{enumerate}

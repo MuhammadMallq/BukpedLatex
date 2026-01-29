@@ -1,0 +1,254 @@
+\subsection{Implementasi Sistem}
+Tahap implementasi merupakan realisasi dari rancangan yang telah disusun pada bab sebelumnya ke dalam baris kode fungsional. Pada tahap ini, pengembangan dilakukan menggunakan Framework Laravel sebagai pondasi utama sistem. Seluruh komponen teknologi diintegrasikan mengikuti pola arsitektur MVC, di mana logika bisnis ditangani oleh Controller, manajemen data oleh Model dengan MySQL, dan antarmuka pengguna dibangun menggunakan View (Blade Template) yang dipadukan dengan JavaScript.
+
+\subsubsection{Struktur Kode Program (Source Code)}
+Struktur kode program pada sistem ini disusun secara modular untuk memisahkan antara logika bisnis, koneksi data, dan tampilan antarmuka. Berikut adalah bagian-bagian kode krusial yang mengimplementasikan fitur utama sistem:
+
+\begin{enumerate}
+    \item \textbf{Koneksi Database} \\
+    Konfigurasi koneksi basis data pada Laravel diatur secara terpusat dalam file \texttt{config/database.php} dan file variabel lingkungan \texttt{.env}. Laravel menggunakan PDO (PHP Data Objects) di belakang layar, yang memberikan lapisan akses data yang konsisten dan aman. Kode berikut menunjukkan konfigurasi driver MySQL yang digunakan aplikasi.
+    
+    \begin{table}[htbp]
+    \centering
+    \caption{Koneksi Database}
+    \label{tab:koneksi_db}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    \begin{verbatim}
+'mysql' => [
+ 'driver' => 'mysql',
+ 'host' => env('DB_HOST', '127.0.0.1'),
+ 'port' => env('DB_PORT', '3306'),
+ 'database' => env('DB_DATABASE', 'laravel'),
+ 'username' => env('DB_USERNAME', 'root'),
+ 'password' => env('DB_PASSWORD', ''),
+ 'charset' => env('DB_CHARSET', 'utf8mb4'),
+ 'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+ // ...
+],
+    \end{verbatim} \\ \hline
+    \end{tabular}
+    \end{table}
+
+    \item \textbf{Logika Automasi Pengurangan Stok} \\
+    Implementasi automasi stok memanfaatkan fitur Eloquent ORM pada Laravel. Potongan kode berikut berada di dalam Controller transaksi. Ketika pesanan disimpan, sistem menggunakan metode \texttt{decrement()} bawaan Laravel untuk mengurangi kolom stok secara otomatis tanpa perlu menulis kueri SQL manual yang panjang, sehingga kode lebih ringkas dan mudah dibaca.
+
+    \begin{table}[htbp]
+    \centering
+    \caption{Automasi Pengurangan Stok}
+    \label{tab:auto_stok}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    \begin{verbatim}
+// Update stock for each item
+if (is_array($dataStok)) {
+ foreach ($dataStok as $item) {
+ $menu = Menu::where('nama_menu', $item['nama'])->first();
+ if ($menu) {
+ $menu->decrement('stok', $item['jumlah']); 
+ }
+ }
+}
+    \end{verbatim} \\ \hline
+    \end{tabular}
+    \end{table}
+
+    \item \textbf{Query Analitik Dashboard} \\
+    Untuk menyajikan data analitik, sistem menggunakan Laravel Query Builder dengan metode \texttt{selectRaw} untuk melakukan agregasi data yang kompleks. Pendekatan ini memungkinkan pengambilan data pendapatan bulanan langsung dari model Pesanan dengan efisiensi tinggi, yang kemudian dikelompokkan berdasarkan bulan menggunakan \texttt{groupBy}.
+
+    \begin{table}[htbp]
+    \centering
+    \caption{Analitik Dashboard}
+    \label{tab:analitik_query}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    \begin{verbatim}
+// Monthly Revenue Chart Data
+$tahunIni = date('Y');
+$pendapatanBulanan = array_fill(0, 12, 0);
+$bulananData = Pesanan::selectRaw('MONTH(waktu_pesan) as bulan, 
+SUM(total_harga) as total')
+ ->whereYear('waktu_pesan', $tahunIni)
+ ->where('status_pesanan', 'Selesai')
+ ->groupBy(DB::raw('MONTH(waktu_pesan)'))
+ ->get();
+foreach ($bulananData as $row) {
+ $pendapatanBulanan[$row->bulan - 1] = (int) $row->total;
+}
+    \end{verbatim} \\ \hline
+    \end{tabular}
+    \end{table}
+
+    \item \textbf{Integrasi WhatsApp API} \\
+    Bagian ini bertugas menyusun detail pesanan pelanggan ke dalam format pesan teks yang secara otomatis diarahkan ke nomor WhatsApp administrator untuk proses konfirmasi instan.
+
+    \begin{table}[htbp]
+    \centering
+    \caption{Integrasi WhatsApp API}
+    \label{tab:wa_api_code}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    \begin{verbatim}
+const nomorWA = "6282122339125";
+window.open(`https://wa.me/${nomorWA}?text=${pesanWA}%0ATotal: 
+${totalRaw}%0AMetode: ${method}`, '_blank');
+    \end{verbatim} \\ \hline
+    \end{tabular}
+    \end{table}
+\end{enumerate}
+
+\subsubsection{Perancangan Antarmuka Sistem}
+Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua segmen utama, yaitu antarmuka publik untuk pelanggan (Frontend) dan antarmuka manajemen untuk administrator (Backend). Desain dirancang agar responsif dan mudah digunakan.
+
+\textbf{A. Antarmuka Pengguna Publik (Frontend Pelanggan)}
+
+\begin{enumerate}
+    \item \textbf{Halaman Beranda (Home Page)} \\
+    Halaman ini merupakan titik akses pertama saat pelanggan mengunjungi website. Desain halaman ini didominasi oleh Hero Section yang menampilkan spanduk promosi besar (banner) dengan visual minuman Ice Tea yang segar untuk menarik perhatian.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{home_page.png}
+        \caption{Tampilan Beranda Web}
+        \label{fig:home_page}
+    \end{figure}
+
+    \textbf{Komponen Utama:}
+    \begin{itemize}
+        \item \textbf{Navbar}: Terletak di bagian atas, berisi logo "Ice Tea Shop" dan tautan navigasi (Beranda, Menu, Kontak).
+        \item \textbf{Banner Utama}: Menampilkan slogan promosi dan tombol "Pesan Sekarang" (Call to Action) yang mengarahkan pengguna langsung ke katalog menu.
+        \item \textbf{Bagian Favorit}: Menampilkan cuplikan 3 menu terlaris (best seller) sebagai rekomendasi cepat bagi pelanggan.
+        \item \textbf{Footer}: Berisi informasi singkat tentang UMKM dan hak cipta website.
+    \end{itemize}
+
+    \item \textbf{Halaman Daftar Menu (Katalog Produk)} \\
+    Halaman ini berfungsi sebagai etalase digital yang menampilkan seluruh varian produk yang tersedia. Tata letak menggunakan sistem grid responsif agar tampilan tetap rapi baik di layar desktop maupun ponsel.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{catalog_menu.png}
+        \caption{Tampilan Katalog Menu Web}
+        \label{fig:catalog_menu}
+    \end{figure}
+
+    \textbf{Komponen Utama:}
+    \begin{itemize}
+        \item \textbf{Kartu Produk}: Setiap item menu dibungkus dalam kartu yang memuat foto produk, nama menu, deskripsi singkat rasa, dan harga per unit.
+        \item \textbf{Indikator Stok}: Label status stok real-time. Jika stok > 0, tombol "Beli" akan aktif. Jika stok 0, tombol berubah menjadi "Habis" (non-aktif).
+    \end{itemize}
+
+    \item \textbf{Halaman Keranjang \& Checkout} \\
+    Fitur pop-up ini muncul ketika pelanggan memilih menu untuk dipesan. Antarmuka ini dirancang ringkas untuk meminimalkan langkah pemesanan.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.5\textwidth]{cart_view.png}
+        \caption{Tampilan Keranjang}
+        \label{fig:cart_view}
+    \end{figure}
+
+    \textbf{Komponen Utama:}
+    \begin{itemize}
+        \item \textbf{Ringkasan Pesanan}: Tabel yang menampilkan daftar item yang dipilih, jumlah (kuantitas), dan subtotal harga.
+        \item \textbf{Formulir Data Diri}: Kolom input wajib untuk "Nama Pemesan" agar admin dapat mengidentifikasi pesanan.
+        \item \textbf{Pilihan Pembayaran}: Opsi untuk memilih metode pembayaran (COD atau Transfer).
+        \item \textbf{Tombol Konfirmasi}: Tombol "Kirim Pesanan via WhatsApp" yang berfungsi menyimpan data ke database sekaligus mengalihkan pengguna ke aplikasi WhatsApp.
+    \end{itemize}
+
+    \item \textbf{Halaman Kontak} \\
+    Halaman ini menyediakan informasi esensial bagi pelanggan yang ingin mengunjungi toko fisik atau menghubungi layanan pelanggan, mencakup peta lokasi (Google Maps) dan jam operasional.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{kontak.png}
+        \caption{Tampilan Halaman Kontak}
+        \label{fig:kontak_ui}
+    \end{figure}
+\end{enumerate}
+
+\textbf{B. Antarmuka Administrator (Backend System)}
+
+\begin{enumerate}
+    \item \textbf{Halaman Login Administrator} \\
+    Halaman keamanan yang menjadi gerbang masuk ke sistem backend. Didesain sederhana namun aman untuk mencegah akses yang tidak sah.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.7\textwidth]{admin_login.png}
+        \caption{Tampilan Login}
+        \label{fig:admin_login}
+    \end{figure}
+
+    \textbf{Komponen Utama:}
+    \begin{itemize}
+        \item \textbf{Formulir Kredensial}: Kolom input untuk Username dan Password.
+        \item \textbf{Validasi Keamanan}: Sistem akan menampilkan pesan peringatan berwarna merah jika data yang dimasukkan tidak cocok dengan database.
+    \end{itemize}
+
+    \item \textbf{Dashboard Utama (Pusat Analitik)} \\
+    Halaman pertama yang menyambut admin setelah login sukses. Berfungsi sebagai pusat kendali untuk memantau kesehatan bisnis secara cepat.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{dashboard_admin.png}
+        \caption{Tampilan Dashboard Admin}
+        \label{fig:dashboard_admin}
+    \end{figure}
+
+    \textbf{Komponen Utama:}
+    \begin{itemize}
+        \item \textbf{Kartu Statistik (Summary Cards)}: Empat kotak ringkasan yang menampilkan angka penting: Total Menu, Pesanan Masuk, Total Pendapatan, dan Stok Menipis.
+        \item \textbf{Grafik Pendapatan}: Diagram visual yang menunjukkan tren omset penjualan bulanan.
+        \item \textbf{Tabel 5 Pesanan Terakhir}: Ringkasan cepat transaksi yang baru saja masuk.
+    \end{itemize}
+
+    \item \textbf{Halaman Manajemen Stok \& Menu (Terintegrasi)} \\
+    Halaman ini adalah pusat pengelolaan inventaris produk. Berbeda dengan pendekatan terpisah, sistem ini menyatukan pengelolaan informasi menu dan stok dalam satu antarmuka tabel yang efisien untuk memudahkan admin.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{stock_management.png}
+        \caption{Tampilan Kelola Stok \& Menu}
+        \label{fig:stock_management}
+    \end{figure}
+
+    \textbf{Komponen Utama:}
+    \begin{itemize}
+        \item \textbf{Tabel Data Terpusat}: Menampilkan seluruh atribut produk dalam satu baris, mencakup Foto, Nama, Harga, dan Jumlah Stok saat ini.
+        \item \textbf{Tombol Tambah Menu}: Tombol aksi utama di bagian atas tabel. Saat ditekan, sistem akan mengarahkan admin ke Halaman Tambah Menu Baru (Form Create) untuk menginput produk dari awal.
+        
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=0.6\textwidth]{tambah_menu.png}
+            \caption{Halaman Tambah Menu Baru}
+            \label{fig:tambah_menu}
+        \end{figure}
+
+        \item \textbf{Tombol Edit (Ikon Pensil Oren)}: Terdapat di setiap baris produk. Saat ditekan, admin akan diarahkan ke Halaman Edit Menu, di mana admin dapat memperbarui nama, harga, deskripsi, sekaligus melakukan penyesuaian jumlah stok (Restock) dalam satu formulir yang sama.
+        
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=0.6\textwidth]{edit_menu.png}
+            \caption{Halaman Edit Menu}
+            \label{fig:edit_menu}
+        \end{figure}
+
+        \item \textbf{Tombol Hapus (Ikon Sampah Merah)}: Fitur untuk menghapus produk dari database secara permanen.
+    \end{itemize}
+
+    \item \textbf{Halaman Riwayat Pesanan} \\
+    Halaman operasional untuk memproses pesanan yang masuk. Di sinilah logika automasi stok dipicu.
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{order_history.png}
+        \caption{Tampilan Riwayat Pemesanan}
+        \label{fig:order_history}
+    \end{figure}
+
+    \textbf{Komponen Utama:}
+    \begin{itemize}
+        \item \textbf{Daftar Pesanan}: Tabel rinci yang memuat ID Pesanan, Nama Pelanggan, Detail Item, Total Harga, dan Waktu Pesan.
+        \item \textbf{Status Controller}: Fitur untuk mengubah status pesanan (Baru $\rightarrow$ Selesai/Batal). Perubahan ke "Selesai" akan otomatis mengurangi stok, dan "Batal" akan mengembalikan stok.
+    \end{itemize}
+\end{enumerate}
