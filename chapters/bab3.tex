@@ -101,7 +101,7 @@ Diagram Use Case mendeskripsikan fungsionalitas sistem dari sudut pandang penggu
 \caption{Definisi Use Case}
 \label{tab:def_use_case}
 \small
-\begin{tabularx}{\textwidth}{|l|l|X|}
+\begin{tabularx}{\textwidth}{|c|l|X|}
 \hline
 \textbf{No} & \textbf{Use Case} & \textbf{Deskripsi} \\ \hline
 1 & Otentikasi Admin (Login) & Proses verifikasi identitas administrator untuk mendapatkan akses ke panel pengelolaan. \\
@@ -144,7 +144,7 @@ Berikut adalah penjabaran langkah-langkah interaksi antara aktor dan sistem untu
 \caption{Skenario Login Administrator}
 \label{tab:skenario_login}
 \small
-\begin{tabularx}{\textwidth}{|l|X|}
+\begin{tabularx}{\textwidth}{|X|X|}
 \hline
 \textbf{Identifikasi} & \textbf{Keterangan} \\ \hline
 Nama Use Case & Otentikasi Admin (Login) \\ \hline
@@ -165,7 +165,7 @@ Kondisi Akhir & Admin berhasil masuk dan diarahkan ke Dashboard \\ \hline
 \caption{Skenario Checkout Pesanan (Pelanggan)}
 \label{tab:skenario_checkout}
 \small
-\begin{tabularx}{\textwidth}{|l|X|}
+\begin{tabularx}{\textwidth}{|X|X|}
 \hline
 \textbf{Identifikasi} & \textbf{Keterangan} \\ \hline
 Nama Use Case & Checkout Pesanan \\ \hline
@@ -187,7 +187,7 @@ Kondisi Akhir & Data pesanan disimpan di database dengan status "Baru" \\ \hline
 \caption{Skenario Use Case – Integrasi WhatsApp}
 \label{tab:skenario_wa}
 \small
-\begin{tabularx}{\textwidth}{|l|X|}
+\begin{tabularx}{\textwidth}{|X|X|}
 \hline
 \textbf{Identifikasi} & \textbf{Keterangan} \\ \hline
 Nama Use Case & Integrasi Pesanan via WhatsApp \\ \hline
@@ -218,7 +218,7 @@ Diagram Aktivitas menggambarkan alur kerja (workflow) dari sudut pandang operasi
 \caption{Activity Diagram}
 \label{tab:activity_diagram}
 \small
-\begin{tabularx}{\textwidth}{|l|l|X|l|}
+\begin{tabularx}{\textwidth}{|c|l|X|l|}
 \hline
 \textbf{No} & \textbf{Aktivitas} & \textbf{Deskripsi} & \textbf{Aktor} \\ \hline
 1. & Membuka Website & Pelanggan mengakses halaman utama aplikasi. & Pelanggan \\ \hline
@@ -246,7 +246,7 @@ Diagram Urutan memvisualisasikan interaksi teknis antar komponen kode (MVC) sela
 \caption{Sequence Diagram}
 \label{tab:sequence_diagram}
 \small
-\begin{tabularx}{\textwidth}{|l|l|l|l|X|}
+\begin{tabularx}{\textwidth}{|c|l|l|l|X|}
 \hline
 \textbf{No} & \textbf{Pesan (Message)} & \textbf{Dari (Source)} & \textbf{Ke (Target)} & \textbf{Deskripsi Teknis} \\ \hline
 1. & pilihMenu() & Pelanggan & View (Halaman Checkout) & Interaksi awal memilih item pada antarmuka. \\ \hline
@@ -338,18 +338,11 @@ Menu & Pesanan & Many-to-Many (M:N) & Satu jenis menu dapat dipesan dalam banyak
 \end{table}
 
 \subsubsection{Algoritma Fungsi Sistem Terintegrasi}
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{flowchart_logic.png}
     \caption{Flowchart Logika Sistem (Whatsapp API \& Automasi Stok)}
     \label{fig:flowchart_logic}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{diagram-alir-penelitian.png}
-    \caption{Diagram Alir Penelitian}
-    \label{fig:flowchart_penelitian}
 \end{figure}
 
 Algoritma sistem dirancang untuk menangani alur transaksi secara end-to-end, mulai dari pemilihan produk oleh pelanggan di sisi frontend hingga pembaruan laporan penjualan di sisi backend. Proses dimulai ketika pelanggan memilih menu; sistem akan melakukan validasi ketersediaan stok secara otomatis sebelum mengizinkan pelanggan mengisi data pemesanan. Setelah data dikonfirmasi, sistem tidak hanya menyimpan riwayat transaksi ke dalam basis data dengan status 'Baru', tetapi juga secara cerdas menyusun tautan API WhatsApp yang berisi rincian pesanan untuk memfasilitasi komunikasi langsung ke administrator.
