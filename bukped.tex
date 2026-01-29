@@ -21,6 +21,7 @@
 \usepackage{array}
 \usepackage[format=hang,font=footnotesize,labelfont=bf]{caption}
 \usepackage{enumitem}
+\usepackage{float}
 % \usepackage{parskip} % Removed to match academic style (Indented paragraphs)
 
 % Paragraph Indentation and Spacing
@@ -58,6 +59,9 @@
     showstringspaces=false,
     showtabs=false,                  
     tabsize=2,
+    frame=single,                    % Adds a frame around the code
+    rulecolor=\color{black},         % Frame color
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, % Arrow at line break
     extendedchars=true,
     literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1,
 }
