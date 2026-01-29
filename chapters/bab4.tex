@@ -8,7 +8,7 @@ Struktur kode program pada sistem ini disusun secara modular untuk memisahkan an
     \item \textbf{Koneksi Database} \\
     Konfigurasi koneksi basis data pada Laravel diatur secara terpusat dalam file \texttt{config/database.php} dan file variabel lingkungan \texttt{.env}. Laravel menggunakan PDO (PHP Data Objects) di belakang layar, yang memberikan lapisan akses data yang konsisten dan aman. Kode berikut menunjukkan konfigurasi driver MySQL yang digunakan aplikasi.
     
-    \begin{table}[htbp]
+    \begin{table}[H]
     \centering
     \caption{Koneksi Database}
     \label{tab:koneksi_db}
@@ -33,7 +33,7 @@ Struktur kode program pada sistem ini disusun secara modular untuk memisahkan an
     \item \textbf{Logika Automasi Pengurangan Stok} \\
     Implementasi automasi stok memanfaatkan fitur Eloquent ORM pada Laravel. Potongan kode berikut berada di dalam Controller transaksi. Ketika pesanan disimpan, sistem menggunakan metode \texttt{decrement()} bawaan Laravel untuk mengurangi kolom stok secara otomatis tanpa perlu menulis kueri SQL manual yang panjang, sehingga kode lebih ringkas dan mudah dibaca.
 
-    \begin{table}[htbp]
+    \begin{table}[H]
     \centering
     \caption{Automasi Pengurangan Stok}
     \label{tab:auto_stok}
@@ -56,7 +56,7 @@ if (is_array($dataStok)) {
     \item \textbf{Query Analitik Dashboard} \\
     Untuk menyajikan data analitik, sistem menggunakan Laravel Query Builder dengan metode \texttt{selectRaw} untuk melakukan agregasi data yang kompleks. Pendekatan ini memungkinkan pengambilan data pendapatan bulanan langsung dari model Pesanan dengan efisiensi tinggi, yang kemudian dikelompokkan berdasarkan bulan menggunakan \texttt{groupBy}.
 
-    \begin{table}[htbp]
+    \begin{table}[H]
     \centering
     \caption{Analitik Dashboard}
     \label{tab:analitik_query}
@@ -82,7 +82,7 @@ foreach ($bulananData as $row) {
     \item \textbf{Integrasi WhatsApp API} \\
     Bagian ini bertugas menyusun detail pesanan pelanggan ke dalam format pesan teks yang secara otomatis diarahkan ke nomor WhatsApp administrator untuk proses konfirmasi instan.
 
-    \begin{table}[htbp]
+    \begin{table}[H]
     \centering
     \caption{Integrasi WhatsApp API}
     \label{tab:wa_api_code}
@@ -106,7 +106,7 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \item \textbf{Halaman Beranda (Home Page)} \\
     Halaman ini merupakan titik akses pertama saat pelanggan mengunjungi website. Desain halaman ini didominasi oleh Hero Section yang menampilkan spanduk promosi besar (banner) dengan visual minuman Ice Tea yang segar untuk menarik perhatian.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{home_page.png}
         \caption{Tampilan Beranda Web}
@@ -124,7 +124,7 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \item \textbf{Halaman Daftar Menu (Katalog Produk)} \\
     Halaman ini berfungsi sebagai etalase digital yang menampilkan seluruh varian produk yang tersedia. Tata letak menggunakan sistem grid responsif agar tampilan tetap rapi baik di layar desktop maupun ponsel.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{catalog_menu.png}
         \caption{Tampilan Katalog Menu Web}
@@ -140,7 +140,7 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \item \textbf{Halaman Keranjang \& Checkout} \\
     Fitur pop-up ini muncul ketika pelanggan memilih menu untuk dipesan. Antarmuka ini dirancang ringkas untuk meminimalkan langkah pemesanan.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{cart_view.png}
         \caption{Tampilan Keranjang}
@@ -158,7 +158,7 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \item \textbf{Halaman Kontak} \\
     Halaman ini menyediakan informasi esensial bagi pelanggan yang ingin mengunjungi toko fisik atau menghubungi layanan pelanggan, mencakup peta lokasi (Google Maps) dan jam operasional.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{kontak.png}
         \caption{Tampilan Halaman Kontak}
@@ -172,7 +172,7 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \item \textbf{Halaman Login Administrator} \\
     Halaman keamanan yang menjadi gerbang masuk ke sistem backend. Didesain sederhana namun aman untuk mencegah akses yang tidak sah.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{admin_login.png}
         \caption{Tampilan Login}
@@ -188,7 +188,7 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \item \textbf{Dashboard Utama (Pusat Analitik)} \\
     Halaman pertama yang menyambut admin setelah login sukses. Berfungsi sebagai pusat kendali untuk memantau kesehatan bisnis secara cepat.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{dashboard_admin.png}
         \caption{Tampilan Dashboard Admin}
@@ -205,7 +205,7 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \item \textbf{Halaman Manajemen Stok \& Menu (Terintegrasi)} \\
     Halaman ini adalah pusat pengelolaan inventaris produk. Berbeda dengan pendekatan terpisah, sistem ini menyatukan pengelolaan informasi menu dan stok dalam satu antarmuka tabel yang efisien untuk memudahkan admin.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{stock_management.png}
         \caption{Tampilan Kelola Stok \& Menu}
@@ -216,30 +216,30 @@ Perancangan antarmuka (User Interface) pada Website Ice Tea dibagi menjadi dua s
     \begin{itemize}
         \item \textbf{Tabel Data Terpusat}: Menampilkan seluruh atribut produk dalam satu baris, mencakup Foto, Nama, Harga, dan Jumlah Stok saat ini.
         \item \textbf{Tombol Tambah Menu}: Tombol aksi utama di bagian atas tabel. Saat ditekan, sistem akan mengarahkan admin ke Halaman Tambah Menu Baru (Form Create) untuk menginput produk dari awal.
-        
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.6\textwidth]{tambah_menu.png}
-            \caption{Halaman Tambah Menu Baru}
-            \label{fig:tambah_menu}
-        \end{figure}
-
         \item \textbf{Tombol Edit (Ikon Pensil Oren)}: Terdapat di setiap baris produk. Saat ditekan, admin akan diarahkan ke Halaman Edit Menu, di mana admin dapat memperbarui nama, harga, deskripsi, sekaligus melakukan penyesuaian jumlah stok (Restock) dalam satu formulir yang sama.
-        
-        \begin{figure}[htbp]
-            \centering
-            \includegraphics[width=0.6\textwidth]{edit_menu.png}
-            \caption{Halaman Edit Menu}
-            \label{fig:edit_menu}
-        \end{figure}
-
         \item \textbf{Tombol Hapus (Ikon Sampah Merah)}: Fitur untuk menghapus produk dari database secara permanen.
     \end{itemize}
 
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{tambah_menu.png}
+            \caption{Halaman Tambah Menu Baru}
+            \label{fig:tambah_menu}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{edit_menu.png}
+            \caption{Halaman Edit Menu}
+            \label{fig:edit_menu}
+        \end{minipage}
+    \end{figure}
     \item \textbf{Halaman Riwayat Pesanan} \\
     Halaman operasional untuk memproses pesanan yang masuk. Di sinilah logika automasi stok dipicu.
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{order_history.png}
         \caption{Tampilan Riwayat Pemesanan}

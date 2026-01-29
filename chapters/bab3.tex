@@ -2,7 +2,7 @@
 
 Metodologi yang diterapkan dalam pengembangan Website Ice Tea ini adalah model Waterfall atau model air terjun. Penggunaan metode ini didasarkan pada karakteristik alur kerjanya yang sistematis dan berurutan, sehingga setiap tahapan pengembangan dapat terpantau secara konsisten sebelum berlanjut ke tahap berikutnya.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Waterfall_Mode.png}
     \caption{Waterfall Mode}
@@ -96,7 +96,7 @@ Analisis sistem bertujuan untuk memahami mekanisme kerja dan permasalahan pada o
 
 Diagram Use Case mendeskripsikan fungsionalitas sistem dari sudut pandang pengguna. Tabel berikut merincikan setiap use case yang tersedia dalam sistem informasi penjualan Ice Tea:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Definisi Use Case}
 \label{tab:def_use_case}
@@ -139,7 +139,7 @@ Diagram Use Case mendeskripsikan fungsionalitas sistem dari sudut pandang penggu
 
 Berikut adalah penjabaran langkah-langkah interaksi antara aktor dan sistem untuk beberapa proses utama.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Skenario Login Administrator}
 \label{tab:skenario_login}
@@ -160,7 +160,7 @@ Kondisi Akhir & Admin berhasil masuk dan diarahkan ke Dashboard \\ \hline
 \end{tabularx}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Skenario Checkout Pesanan (Pelanggan)}
 \label{tab:skenario_checkout}
@@ -182,7 +182,7 @@ Kondisi Akhir & Data pesanan disimpan di database dengan status "Baru" \\ \hline
 \end{tabularx}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Skenario Use Case – Integrasi WhatsApp}
 \label{tab:skenario_wa}
@@ -213,7 +213,7 @@ Kondisi Akhir & Aplikasi WhatsApp terbuka dengan pesan pre-filled \\ \hline
 
 Diagram Aktivitas menggambarkan alur kerja (workflow) dari sudut pandang operasional sistem. Berikut adalah rincian aktivitas utama dalam proses pemesanan:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Activity Diagram}
 \label{tab:activity_diagram}
@@ -226,7 +226,7 @@ Diagram Aktivitas menggambarkan alur kerja (workflow) dari sudut pandang operasi
 3. & Memilih Menu & Pelanggan memilih varian minuman dan jumlah pesanan. & Pelanggan \\ \hline
 4. & Cek Stok & Sistem memverifikasi apakah stok mencukupi untuk jumlah yang diminta. & Sistem \\ \hline
 5. & Checkout \& Validasi Data & Pelanggan mengisi data pemesan; sistem menyimpan transaksi dengan status 'Baru'. & Pelanggan \& Sistem \\ \hline
-6. & Redirect Whatsapp & Sistem mengalihkan pelanggan ke aplikasi WhatsApp dengan format pesan otomatis. & Sistem \\ \hline
+6. & Redirect Whatsapp & Sistem mengalihkan pelanggan ke aplikasi WhatsApp with format pesan otomatis. & Sistem \\ \hline
 7. & Konfirmasi Pesanan & Pelanggan mengirimkan pesan WhatsApp ke admin sebagai bukti finalisasi pesanan. & Pelanggan \\ \hline
 \end{tabularx}
 \end{table}
@@ -241,12 +241,12 @@ Diagram Aktivitas menggambarkan alur kerja (workflow) dari sudut pandang operasi
 
 Diagram Urutan memvisualisasikan interaksi teknis antar komponen kode (MVC) selama proses checkout berlangsung. Tabel berikut menjelaskan pesan (message) yang dipertukarkan:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Sequence Diagram}
 \label{tab:sequence_diagram}
-\small
-\begin{tabularx}{\textwidth}{|c|l|l|l|X|}
+\footnotesize
+\begin{tabularx}{\textwidth}{|c|>{\hsize=1.0\hsize}X|>{\hsize=0.8\hsize}X|>{\hsize=0.8\hsize}X|>{\hsize=1.4\hsize}X|}
 \hline
 \textbf{No} & \textbf{Pesan (Message)} & \textbf{Dari (Source)} & \textbf{Ke (Target)} & \textbf{Deskripsi Teknis} \\ \hline
 1. & pilihMenu() & Pelanggan & View (Halaman Checkout) & Interaksi awal memilih item pada antarmuka. \\ \hline
@@ -323,7 +323,7 @@ Sistem ini menggunakan basis data relasional untuk menyimpan dan mengelola data 
 \textbf{Tabel Relasi Antar Entitas} \\
 Relasi antar entitas menggambarkan hubungan logika antara tabel-tabel dalam basis data untuk mendukung proses bisnis. Berikut adalah definisi relasinya:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Tabel Relasi Antar Entitas}
 \label{tab:relasi_entitas}
